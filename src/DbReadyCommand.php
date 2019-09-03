@@ -5,11 +5,11 @@ namespace MLL\LaravelDbReady;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Connection;
-use Illuminate\Database\ConnectionResolverInterface;
 
 class DbReadyCommand extends Command
 {
     const SUCCESS = 'Successfully established a connection.';
+
     /**
      * The name and signature of the console command.
      *
@@ -30,7 +30,7 @@ class DbReadyCommand extends Command
 
     /**
      * Execute the console command.
-     * @param  ConnectionResolverInterface  $connectionResolver
+     *
      * @throws \Exception
      */
     public function handle(/*ConnectionResolverInterface $connectionResolver*/): void
