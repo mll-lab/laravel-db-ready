@@ -11,8 +11,26 @@ An artisan command to check if a database connection is ready
 
 ## Installation
 
-    composer require mll-lab/laravel-db-ready
+    composer require --dev mll-lab/laravel-db-ready
 
 ## Usage
 
-    php artisan db:ready 
+```
+Description:
+  Wait until a database connection is ready.
+
+Usage:
+  db:ready [options]
+
+Options:
+      --database[=DATABASE]  The database connection to use
+      --timeout[=TIMEOUT]    Time in seconds that connecting should be attempted [default: "5"]
+  -h, --help                 Display this help message
+  -q, --quiet                Do not output any message
+  -V, --version              Display this application version
+      --ansi                 Force ANSI output
+      --no-ansi              Disable ANSI output
+  -n, --no-interaction       Do not ask any interactive question
+      --env[=ENV]            The environment the command should run under
+  -v|vv|vvv, --verbose       Increase the verbosity of messages: 1 for normal output, 2 for more verbose output and 3 for debug
+```
