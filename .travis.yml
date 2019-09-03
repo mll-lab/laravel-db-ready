@@ -13,6 +13,7 @@ install:
 - mysql -e 'CREATE DATABASE test;'
 
 script:
+- composer stan
 - vendor/bin/phpunit --coverage-clover=coverage.xml
 
 after_success:

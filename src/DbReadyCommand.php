@@ -33,17 +33,18 @@ class DbReadyCommand extends Command
      *
      * @throws \Exception
      */
-    public function handle(/*ConnectionResolverInterface $connectionResolver*/): void
+    public function handle(): void
     {
         $this->info('Waiting for a successful database connection...');
 
-        $timeout = $this->option('timeout');
+        $timeout = (int) $this->option('timeout');
         $this->output->progressStart($timeout);
 
-        /** @var Connection $connection */
-        $connection = DB::connection(
-            $this->option('database')
-        );
+        /** @var string|null $database */
+        $database = $this->option('database');
+
+        /** @var \Illuminate\Database\Connection $connection */
+        $connection = DB::connection($database);
 
         do {
             try {

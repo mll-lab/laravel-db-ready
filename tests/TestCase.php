@@ -18,10 +18,12 @@ abstract class TestCase extends OrchestraTestCase
     {
         parent::getEnvironmentSetUp($app);
 
-        $config = $this->databaseConfig();
+        $databaseConfig = $this->databaseConfig();
 
-        $app['config']->set('database.default', $config['driver']);
-        $app['config']->set('database.connections.'.$config['driver'], $config);
+        /** @var \Illuminate\Config\Repository $config */
+        $config = $app['config'];
+        $config->set('database.default', $databaseConfig['driver']);
+        $config->set('database.connections.'.$databaseConfig['driver'], $databaseConfig);
     }
 
     abstract protected function databaseConfig(): array;
