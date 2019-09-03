@@ -21,8 +21,8 @@ abstract class TestCase extends OrchestraTestCase
         $config = $this->databaseConfig();
 
         $app['config']->set('database.default', $config['driver']);
-        $app['config']->set('database.connections.' . $config['driver'], $config);
+        $app['config']->set('database.connections.'.$config['driver'], $config);
     }
 
-    protected abstract function databaseConfig(): array;
+    abstract protected function databaseConfig(): array;
 }

@@ -3,9 +3,9 @@
 namespace MLL\LaravelDbReady;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Connection;
 use Illuminate\Database\ConnectionResolverInterface;
-use Illuminate\Support\Facades\DB;
 
 class DbReadyCommand extends Command
 {
@@ -49,9 +49,9 @@ class DbReadyCommand extends Command
             try {
                 $result = $connection->statement('SELECT TRUE;');
             } catch (\Exception $e) {
-                --$timeout;
+                $timeout--;
                 // Once we timeout, we rethrow to enable diagnosing the issue
-                if($timeout <= 0) {
+                if ($timeout <= 0) {
                     throw $e;
                 }
 
