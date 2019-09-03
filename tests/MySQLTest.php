@@ -29,6 +29,6 @@ class MySQLTest extends TestCase
         config(['database.connections.mysql.host' => 'non-existent']);
 
         $this->expectException(\Exception::class);
-        $this->artisan('db:ready --timeout=0')->run();
+        $this->artisan('db:ready --timeout=1')->run();
     }
 }
