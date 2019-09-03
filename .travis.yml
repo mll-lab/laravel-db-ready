@@ -8,7 +8,9 @@ php:
 - 7.2
 - 7.3
 
-install: composer install --prefer-dist --no-interaction --no-suggest
+install:
+- composer install --prefer-dist --no-interaction --no-suggest
+- mysql -e 'CREATE DATABASE test;'
 
 script:
 - vendor/bin/phpunit --coverage-clover=coverage.xml
