@@ -18,7 +18,7 @@ class DbReadyCommand extends Command
     protected $signature = '
         db:ready
         {--database= : The database connection to use}
-        {--timeout=5 : Time in seconds that connecting should be attempted}
+        {--timeout=30 : Time in seconds that connecting should be attempted}
     ';
 
     /**
