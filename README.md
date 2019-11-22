@@ -24,7 +24,7 @@ Usage:
 
 Options:
       --database[=DATABASE]  The database connection to use
-      --timeout[=TIMEOUT]    Time in seconds that connecting should be attempted [default: "5"]
+      --timeout[=TIMEOUT]    Time in seconds that connecting should be attempted [default: "30"]
   -h, --help                 Display this help message
   -q, --quiet                Do not output any message
   -V, --version              Display this application version
