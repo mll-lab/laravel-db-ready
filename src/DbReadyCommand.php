@@ -3,8 +3,8 @@
 namespace MLL\LaravelDbReady;
 
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Connection;
+use Illuminate\Support\Facades\DB;
 
 class DbReadyCommand extends Command
 {
