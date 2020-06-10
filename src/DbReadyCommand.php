@@ -25,9 +25,8 @@ class DbReadyCommand extends Command
         if (! is_numeric($timeout)) {
             throw new \InvalidArgumentException('Must pass an integer to option: timeout');
         }
-
-        // @phpstan-ignore-line This cast is fine, we checked that $timeout is numeric
-        $this->output->progressStart((int) $timeout);
+        $timeout = (int) $timeout; // @phpstan-ignore-line This cast is fine, we checked that $timeout is numeric
+        $this->output->progressStart($timeout);
 
         /** @var string|null $database */
         $database = $this->option('database');
