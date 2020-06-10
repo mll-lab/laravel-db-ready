@@ -22,7 +22,7 @@ class DbReadyCommand extends Command
         $this->info('Waiting for a successful database connection...');
 
         $timeout = $this->option('timeout');
-        if(! is_numeric($timeout)) {
+        if (! is_numeric($timeout)) {
             throw new \InvalidArgumentException('Must pass an integer to option: timeout');
         }
 
