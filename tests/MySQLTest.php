@@ -38,4 +38,12 @@ class MySQLTest extends TestCase
         $readyCommand = $this->artisan('db:ready --timeout=1');
         $readyCommand->run();
     }
+
+    public function testTimeoutString(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        /** @var \Illuminate\Testing\PendingCommand $readyCommand */
+        $readyCommand = $this->artisan('db:ready --timeout=not-a-valid-timeout');
+        $readyCommand->run();
+    }
 }
