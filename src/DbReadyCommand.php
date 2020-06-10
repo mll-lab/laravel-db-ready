@@ -3,42 +3,31 @@
 namespace MLL\LaravelDbReady;
 
 use Illuminate\Console\Command;
-use Illuminate\Database\Connection;
 use Illuminate\Support\Facades\DB;
 
 class DbReadyCommand extends Command
 {
     const SUCCESS = 'Successfully established a connection.';
 
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
     protected $signature = '
         db:ready
         {--database= : The database connection to use}
         {--timeout=30 : Time in seconds that connecting should be attempted}
     ';
 
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
     protected $description = 'Wait until a database connection is ready.';
 
-    /**
-     * Execute the console command.
-     *
-     * @throws \Exception
-     */
     public function handle(): void
     {
         $this->info('Waiting for a successful database connection...');
 
-        $timeout = (int) $this->option('timeout');
-        $this->output->progressStart($timeout);
+        $timeout = $this->option('timeout');
+        if(! is_numeric($timeout)) {
+            throw new \InvalidArgumentException('Must pass an integer to option: timeout');
+        }
+
+        // @phpstan-ignore-line This cast is fine, we checked that $timeout is numeric
+        $this->output->progressStart((int) $timeout);
 
         /** @var string|null $database */
         $database = $this->option('database');
@@ -59,7 +48,7 @@ class DbReadyCommand extends Command
                 sleep(1);
                 $this->output->progressAdvance();
             }
-        } while (empty($result));
+        } while (! isset($result));
 
         $this->output->progressFinish();
         $this->info(self::SUCCESS);

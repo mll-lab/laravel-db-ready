@@ -7,14 +7,17 @@ use Orchestra\Testbench\TestCase as OrchestraTestCase;
 
 abstract class TestCase extends OrchestraTestCase
 {
-    protected function getPackageProviders($app)
+    /**
+     * @return array<class-string<\Illuminate\Support\ServiceProvider>>
+     */
+    protected function getPackageProviders($app): array
     {
         return [
             LaravelDbReadyServiceProvider::class,
         ];
     }
 
-    protected function getEnvironmentSetUp($app)
+    protected function getEnvironmentSetUp($app): void
     {
         parent::getEnvironmentSetUp($app);
 
@@ -26,5 +29,8 @@ abstract class TestCase extends OrchestraTestCase
         $config->set('database.connections.'.$databaseConfig['driver'], $databaseConfig);
     }
 
+    /**
+     * @return array<string, string>
+     */
     abstract protected function databaseConfig(): array;
 }

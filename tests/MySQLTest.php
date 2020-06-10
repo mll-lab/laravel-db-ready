@@ -6,6 +6,9 @@ use MLL\LaravelDbReady\DbReadyCommand;
 
 class MySQLTest extends TestCase
 {
+    /**
+     * @return array<string, string>
+     */
     protected function databaseConfig(): array
     {
         return [
@@ -18,7 +21,9 @@ class MySQLTest extends TestCase
 
     public function testSuccess(): void
     {
-        $this->artisan('db:ready')
+        /** @var \Illuminate\Testing\PendingCommand $readyCommand */
+        $readyCommand = $this->artisan('db:ready');
+        $readyCommand
             ->expectsOutput(DbReadyCommand::SUCCESS)
             ->assertExitCode(0)
             ->run();
@@ -29,6 +34,8 @@ class MySQLTest extends TestCase
         config(['database.connections.mysql.host' => 'non-existent']);
 
         $this->expectException(\Exception::class);
-        $this->artisan('db:ready --timeout=1')->run();
+        /** @var \Illuminate\Testing\PendingCommand $readyCommand */
+        $readyCommand = $this->artisan('db:ready --timeout=1');
+        $readyCommand->run();
     }
 }
