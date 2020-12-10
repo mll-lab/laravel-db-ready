@@ -1,20 +1,20 @@
 language: php
 
 services:
-- mysql
+  - mysql
 
 php:
-- 7.2
-- 7.3
-- 7.4
+  - 7.3
+  - 7.4
+  - 8.0
 
 install:
-- composer install --prefer-dist --no-interaction --no-suggest
-- mysql -e 'CREATE DATABASE test;'
+  - composer install --prefer-dist --no-interaction --no-suggest
+  - mysql -e 'CREATE DATABASE test;'
 
 script:
-- composer stan
-- vendor/bin/phpunit --coverage-clover=coverage.xml
+  - vendor/bin/phpstan analyse
+  - vendor/bin/phpunit --coverage-clover=coverage.xml
 
 after_success:
-- bash <(curl -s https://codecov.io/bash)
+  - bash <(curl -s https://codecov.io/bash)
