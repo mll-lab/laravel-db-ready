@@ -6,9 +6,6 @@ use MLL\LaravelDbReady\DbReadyCommand;
 
 class MySQLTest extends TestCase
 {
-    /**
-     * @return array<string, string>
-     */
     protected function databaseConfig(): array
     {
         return [

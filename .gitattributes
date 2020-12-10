@@ -8,5 +8,6 @@
 .travis.yml export-ignore
 docker-compose.yml export-ignore
 Dockerfile export-ignore
+Makefile export-ignore
 phpstan.neon export-ignore
 phpunit.xml export-ignore
