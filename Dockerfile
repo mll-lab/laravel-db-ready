@@ -1,4 +1,4 @@
-FROM php:7.3-fpm-stretch
+FROM php:7.4-cli
 
 WORKDIR /var/www
 
@@ -6,7 +6,7 @@ RUN apt-get update && apt-get install -y \
         git \
         libzip-dev \
         zip \
-    && docker-php-ext-configure zip --with-libzip \
+    && docker-php-ext-configure zip \
     && docker-php-ext-install \
         zip \
         mysqli \
