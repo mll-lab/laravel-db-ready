@@ -24,6 +24,7 @@ shell: up ## Jump into a shell in the php container
 
 .PHONY: fix
 fix: up ## Fix code style
+	${dc-php} composer normalize
 	${dc-php} vendor/bin/php-cs-fixer fix
 
 .PHONY: stan

@@ -1,9 +1,13 @@
 {
   "name": "mll-lab/laravel-db-ready",
   "description": "An artisan command to check if a database connection is ready",
-  "type": "library",
-  "keywords": ["laravel", "php", "database"],
   "license": "MIT",
+  "type": "library",
+  "keywords": [
+    "laravel",
+    "php",
+    "database"
+  ],
   "authors": [
     {
       "name": "Benedikt Franke",
@@ -15,9 +19,10 @@
     "illuminate/contracts": "^8 || ^9"
   },
   "require-dev": {
-    "orchestra/testbench": "^6 || ^7",
+    "ergebnis/composer-normalize": "^2.23",
+    "mll-lab/php-cs-fixer-config": "^4.4",
     "nunomaduro/larastan": "^0.7 || ^1",
-    "mll-lab/php-cs-fixer-config": "^4.4"
+    "orchestra/testbench": "^6 || ^7"
   },
   "autoload": {
     "psr-4": {
@@ -27,6 +32,11 @@
   "autoload-dev": {
     "psr-4": {
       "Tests\\": "tests/"
+    }
+  },
+  "config": {
+    "allow-plugins": {
+      "ergebnis/composer-normalize": true
     }
   },
   "extra": {
