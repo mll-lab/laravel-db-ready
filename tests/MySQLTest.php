@@ -10,9 +10,9 @@ class MySQLTest extends TestCase
     protected function databaseConfig(): array
     {
         return [
-            'driver'   => 'mysql',
+            'driver' => 'mysql',
             'database' => 'test',
-            'host'     => env('GITHUB_ACTIONS') ? 'localhost' : 'mysql',
+            'host' => env('GITHUB_ACTIONS') ? 'localhost' : 'mysql',
             'username' => 'root',
             'password' => 'root',
         ];
