@@ -22,14 +22,14 @@ class DbReadyCommand extends Command
         $this->info('Waiting for a successful database connection...');
 
         $timeout = $this->option('timeout');
-        if (! is_numeric($timeout)) {
+        if (!is_numeric($timeout)) {
             throw new \InvalidArgumentException('Must pass an integer to option: timeout');
         }
         $timeout = (int) $timeout;
         $this->output->progressStart($timeout);
 
         $database = $this->option('database');
-        if (! is_null($database) && ! is_string($database)) {
+        if (!is_null($database) && !is_string($database)) {
             throw new \InvalidArgumentException('Must pass string or null to option: database');
         }
 
@@ -39,7 +39,7 @@ class DbReadyCommand extends Command
             try {
                 $result = $connection->statement('SELECT TRUE;');
             } catch (\Exception $e) {
-                --$timeout;
+                $timeout--;
                 // Once we timeout, we rethrow to enable diagnosing the issue
                 if ($timeout <= 0) {
                     throw $e;
@@ -48,7 +48,7 @@ class DbReadyCommand extends Command
                 sleep(1);
                 $this->output->progressAdvance();
             }
-        } while (! isset($result));
+        } while (!isset($result));
 
         $this->output->progressFinish();
         $this->info(self::SUCCESS);
