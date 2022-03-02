@@ -2,6 +2,7 @@
 
 namespace Tests;
 
+use Illuminate\Testing\PendingCommand;
 use MLL\LaravelDbReady\DbReadyCommand;
 
 class MySQLTest extends TestCase
@@ -11,15 +12,16 @@ class MySQLTest extends TestCase
         return [
             'driver' => 'mysql',
             'database' => 'test',
-            'host' => env('TRAVIS') ? '127.0.0.1' : 'mysql',
+            'host' => env('GITHUB_ACTIONS') ? 'localhost' : 'mysql',
             'username' => 'root',
+            'password' => 'root',
         ];
     }
 
     public function testSuccess(): void
     {
-        /** @var \Illuminate\Testing\PendingCommand $readyCommand */
         $readyCommand = $this->artisan('db:ready');
+        assert($readyCommand instanceof PendingCommand);
         $readyCommand
             ->expectsOutput(DbReadyCommand::SUCCESS)
             ->assertExitCode(0)
@@ -30,17 +32,19 @@ class MySQLTest extends TestCase
     {
         config(['database.connections.mysql.host' => 'non-existent']);
 
-        $this->expectException(\Exception::class);
-        /** @var \Illuminate\Testing\PendingCommand $readyCommand */
         $readyCommand = $this->artisan('db:ready --timeout=1');
+        assert($readyCommand instanceof PendingCommand);
+
+        $this->expectException(\Exception::class);
         $readyCommand->run();
     }
 
     public function testTimeoutString(): void
     {
-        $this->expectException(\InvalidArgumentException::class);
-        /** @var \Illuminate\Testing\PendingCommand $readyCommand */
         $readyCommand = $this->artisan('db:ready --timeout=not-a-valid-timeout');
+        assert($readyCommand instanceof PendingCommand);
+
+        $this->expectException(\InvalidArgumentException::class);
         $readyCommand->run();
     }
 }

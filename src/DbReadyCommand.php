@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\DB;
 
 class DbReadyCommand extends Command
 {
-    const SUCCESS = 'Successfully established a connection.';
+    public const SUCCESS = 'Successfully established a connection.';
 
     protected $signature = '
         db:ready
@@ -28,17 +28,18 @@ class DbReadyCommand extends Command
         $timeout = (int) $timeout;
         $this->output->progressStart($timeout);
 
-        /** @var string|null $database */
         $database = $this->option('database');
+        if (! is_null($database) && ! is_string($database)) {
+            throw new \InvalidArgumentException('Must pass string or null to option: database');
+        }
 
-        /** @var \Illuminate\Database\Connection $connection */
         $connection = DB::connection($database);
 
         do {
             try {
                 $result = $connection->statement('SELECT TRUE;');
             } catch (\Exception $e) {
-                $timeout--;
+                --$timeout;
                 // Once we timeout, we rethrow to enable diagnosing the issue
                 if ($timeout <= 0) {
                     throw $e;

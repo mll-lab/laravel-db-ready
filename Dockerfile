@@ -1,6 +1,8 @@
-FROM php:7.4-cli
+FROM php:8.0-cli
 
 WORKDIR /var/www
+
+COPY --from=composer /usr/bin/composer /usr/bin/composer
 
 RUN apt-get update && apt-get install -y \
         git \
@@ -11,10 +13,17 @@ RUN apt-get update && apt-get install -y \
         zip \
         mysqli \
         pdo_mysql \
-    && rm -rf /var/lib/apt/lists/*
-
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin --filename=composer
-ENV COMPOSER_ALLOW_SUPERUSER=1
-
-RUN pecl install xdebug \
+    && rm -rf /var/lib/apt/lists/* \
+    && pecl install xdebug \
     && docker-php-ext-enable xdebug
+
+ARG USER
+ARG USER_ID
+ARG GROUP_ID
+
+RUN if [ ${USER_ID:-0} -ne 0 ] && [ ${GROUP_ID:-0} -ne 0 ]; then \
+    groupadd --force --gid ${GROUP_ID} ${USER} &&\
+    useradd --no-log-init --uid ${USER_ID} --gid ${GROUP_ID} ${USER} \
+;fi
+
+USER ${USER}

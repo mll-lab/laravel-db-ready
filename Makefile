@@ -1,11 +1,11 @@
 dc-php=$$( [ -f /.dockerenv ] && echo "" || echo "docker-compose exec php")
 
 .PHONY: it
-it: vendor stan test ## Run all quality tools
+it: vendor fix stan test ## Run all quality tools
 
 .PHONY: help
 help: ## Displays this list of targets with descriptions
-	@grep -E '^[a-zA-Z0-9_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ": .*?## "}; {printf "\033[32m%-30s\033[0m %s\n", $$1, $$2}'
+	@grep -E '^[a-zA-Z0-9_-]+:.*?## .*$$' $(firstword $(MAKEFILE_LIST)) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[32m%-30s\033[0m %s\n", $$1, $$2}'
 
 .PHONY: setup
 setup: dc-build vendor ## Setup the local environment
@@ -21,6 +21,10 @@ up: ## Bring up the containers
 .PHONY: shell
 shell: up ## Jump into a shell in the php container
 	${dc-php} bash
+
+.PHONY: fix
+fix: up ## Fix code style
+	${dc-php} vendor/bin/php-cs-fixer fix
 
 .PHONY: stan
 stan: up ## Run static analysis

@@ -1,8 +1,9 @@
-version: '3.7'
-
 services:
   php:
-    build: .
+    build:
+      context: .
+      args:
+        USER: $USER
     volumes:
       - ./:/var/www
     environment:
@@ -15,4 +16,4 @@ services:
     tmpfs: /var/lib/mysql
     environment:
       MYSQL_DATABASE: test
-      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+      MYSQL_ROOT_PASSWORD: root
