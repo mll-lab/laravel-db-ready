@@ -15,7 +15,7 @@
     "illuminate/contracts": "^8 || ^9"
   },
   "require-dev": {
-    "orchestra/testbench": "^^6 || ^7",
+    "orchestra/testbench": "^6 || ^7",
     "nunomaduro/larastan": "^0.7 || ^1",
     "mll-lab/php-cs-fixer-config": "^4.4"
   },
