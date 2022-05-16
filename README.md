@@ -2,7 +2,6 @@
 
 An artisan command to check if a database connection is ready
 
-[![Build Status](https://travis-ci.com/mll-lab/laravel-db-ready.svg?branch=master)](https://travis-ci.com/mll-lab/laravel-db-ready)
 [![codecov](https://codecov.io/gh/mll-lab/laravel-db-ready/branch/master/graph/badge.svg)](https://codecov.io/gh/mll-lab/laravel-db-ready)
 
 [![GitHub license](https://img.shields.io/github/license/mll-lab/laravel-db-ready.svg)](https://github.com/mll-lab/laravel-db-ready/blob/master/LICENSE)
